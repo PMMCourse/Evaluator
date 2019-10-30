@@ -12,6 +12,7 @@ namespace Evaluator.Model
 
         public int MaxDateForEvaluation { get; set; }
 
+        public double MaxNoteForPRs { get; set; }
 
     }
 }

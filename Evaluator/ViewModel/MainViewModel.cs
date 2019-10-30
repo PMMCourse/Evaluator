@@ -31,7 +31,7 @@ namespace Evaluator.ViewModel
         }
         
         private string _evaluatorLink;
-        
+        private List<RelationCalification> _califications;
         private RelayCommand _evaluateCommand;
 
         public ICommand EvaluateCommand => _evaluateCommand;
@@ -47,11 +47,19 @@ namespace Evaluator.ViewModel
             }
         }
 
+        public List<RelationCalification> Califications
+        {
+            get => _califications;
+            set
+            {
+                _califications = value;
+                RaiseProperty();
+            }
+        }
+
         private async void PerformEvaluate()
         {
-            (await GetPRsPerUser()).Select(_evaluatorService.Evaluate(x, _evaluatorService.EvaluationInfo()));
-
-               
+            Califications = (await GetPRsPerUser()).Select(x => _evaluatorService.Evaluate(x, _evaluatorService.EvaluationInfo())).ToList();             
         }
         
         private async Task<List<GithubInfo>> GetPRsPerUser()

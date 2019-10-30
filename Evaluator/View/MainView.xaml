@@ -25,8 +25,15 @@
 
         <Button Grid.Row="0" Grid.Column="1" Content="Evaluate" Command="{Binding EvaluateCommand}"/>
 
-        <ListView Grid.Row="1" Grid.Column="0">
-
+        <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Califications}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding User}"/>
+                        <TextBlock Text="{Binding Calification}" Margin="16,0,0,0"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
 
 
