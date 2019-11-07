@@ -59,7 +59,18 @@ namespace Evaluator.ViewModel
 
         private async void PerformEvaluate()
         {
-            Califications = (await GetPRsPerUser()).Select(x => _evaluatorService.Evaluate(x, _evaluatorService.EvaluationInfo())).ToList();             
+            try
+            {
+                Califications = (await GetPRsPerUser()).Select(x => _evaluatorService.Evaluate(x, _evaluatorService.EvaluationInfo())).ToList();
+
+            }
+            catch (Newtonsoft.Json.JsonSerializationException)
+            {
+                System.Windows.MessageBox.Show("Error: No se ha podidio encontrar el Usuario o Repositorio." +
+                    " Introduce el nombre del Grupo de GitHub.");
+
+                //By: Dani :)
+            }
         }
         
         private async Task<List<GithubInfo>> GetPRsPerUser()
