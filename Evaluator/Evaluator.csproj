@@ -69,6 +69,7 @@
     <Compile Include="Services\IEvaluatorService.cs" />
     <Compile Include="Services\IGithubService.cs" />
     <Compile Include="Utils\ExtensionMethodsCollection.cs" />
+    <Compile Include="Utils\ExtensionMethodsPullRequest.cs" />
     <Compile Include="ViewModel\Base\BaseViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

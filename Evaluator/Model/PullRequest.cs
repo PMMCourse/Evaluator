@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,12 @@ namespace Evaluator.Model
         public int Id { get; set; }
 
         public User User { get; set; }
+
+        public string Title { get; set; }
+        
+        public DateTime Created_at { get; set; }
+
+        public DateTime Updated_at { get; set; }
+
     }
 }

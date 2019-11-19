@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Evaluator.Model;
+using Evaluator.Utils;
 using Newtonsoft.Json;
 
 namespace Evaluator.Services
@@ -16,13 +17,16 @@ namespace Evaluator.Services
         public async Task<List<PullRequest>> GetPullRequests(string name, string repoName)
         {
             var response = await GetHttpClient().GetAsync($"{Host}/repos/{name}/{repoName}/pulls");
-            return JsonConvert.DeserializeObject<List<PullRequest>>(await response.Content.ReadAsStringAsync());
+            var jsonString = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<List<PullRequest>>(jsonString)
+                .Select(x => x.AddTitle(repoName)).ToList();
         }
 
         public async Task<List<Repository>> GetRepositories(string name)             
         {            
             var response = await GetHttpClient().GetAsync($"{Host}/orgs/{name}/repos");
-            return JsonConvert.DeserializeObject<List<Repository>>(await response.Content.ReadAsStringAsync());
+            var jsonString = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<List<Repository>>(jsonString);
         }
 
         private HttpClient GetHttpClient()

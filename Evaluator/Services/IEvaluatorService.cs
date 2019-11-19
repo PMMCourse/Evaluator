@@ -9,7 +9,7 @@ namespace Evaluator.Services
 {
     public interface IEvaluatorService
     {
-        RelationCalification Evaluate(GithubInfo githubInfo, EvaluationValue evaluationValues);
+        RelationCalification Evaluate(GithubInfo githubInfo, EvaluationValue evaluationValues, List<Repository> repositories);
 
         EvaluationValue EvaluationInfo();
     }

@@ -16,6 +16,7 @@ namespace Evaluator.ViewModel
         private readonly IGithubService _githubService;
         private readonly IEvaluatorService _evaluatorService;
 
+        private List<Repository> _repositories = new List<Repository>();
 
         public MainViewModel()
         {
@@ -59,21 +60,23 @@ namespace Evaluator.ViewModel
 
         private async void PerformEvaluate()
         {
-            Califications = (await GetPRsPerUser()).Select(x => _evaluatorService.Evaluate(x, _evaluatorService.EvaluationInfo())).ToList();             
+            Califications = (await GetPRsPerUser())
+                .Select(x => _evaluatorService.Evaluate(x, _evaluatorService.EvaluationInfo(), _repositories)).ToList();             
         }
         
         private async Task<List<GithubInfo>> GetPRsPerUser()
         {
             List<PullRequest> pullRequests = new List<PullRequest>();
 
-            var repos = await _githubService.GetRepositories(EvaluatorLink);
-            var exercises = repos.Where(x => x.Name.Contains("Ejer")).ToList();
+            _repositories = await _githubService.GetRepositories(EvaluatorLink);
+            var exercises = _repositories.Where(x => x.Name.Contains("Ejer")).ToList();
             foreach (var exer in exercises)
             {
                 pullRequests.AddRange(await _githubService.GetPullRequests(EvaluatorLink, exer.Name));
             }
 
-            return pullRequests.GroupBy(x => x.User.Login).Select(x => new GithubInfo() { User = x.Key, PullRequests = x.ToList() }).ToList();
+            return pullRequests.GroupBy(x => x.User.Login)
+                .Select(x => new GithubInfo() { User = x.Key, PullRequests = x.ToList() }).ToList();
         }
 
         private bool CanEvaluate()

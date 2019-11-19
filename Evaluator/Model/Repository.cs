@@ -13,5 +13,7 @@ namespace Evaluator.Model
         public string Name { get; set; }
 
         public string Html_Url { get; set; }
+
+        public DateTime Created_at { get; set; }
     }
 }
