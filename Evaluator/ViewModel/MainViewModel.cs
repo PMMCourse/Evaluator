@@ -18,6 +18,7 @@ namespace Evaluator.ViewModel
 
         private List<Repository> _repositories = new List<Repository>();
 
+        private Qualification _qualification = new Qualification();
         public MainViewModel()
         {
             _githubService = SimpleContainerService.Get<IGithubService>();
@@ -54,6 +55,16 @@ namespace Evaluator.ViewModel
             set
             {
                 _califications = value;
+                RaiseProperty();
+            }
+        }
+
+        public Qualification Qualification
+        {
+            get => _qualification;
+            set
+            {
+                _qualification = value;
                 RaiseProperty();
             }
         }

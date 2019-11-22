@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:Evaluator.Controls"
         xmlns:local="clr-namespace:Evaluator.View"
         mc:Ignorable="d"
         Title="MainView" Height="450" Width="800">
@@ -25,7 +26,11 @@
 
         <Button Grid.Row="0" Grid.Column="1" Content="Evaluate" Command="{Binding EvaluateCommand}"/>
 
-        <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Califications}"/>
-        
+        <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Califications}"
+                  SelectedCellsChanged="DataGrid_SelectedCellsChanged"/>
+
+        <controls:ControlEvaluation Grid.Row="1" Grid.Column="1" DataContext="{Binding SelectedCell}"/>
+
+
     </Grid>
 </Window>

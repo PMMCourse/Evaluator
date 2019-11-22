@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="Evaluator.Controls.ControlEvaluation"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Evaluator.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Changes"/>
+            <Label x:Name="LabelChanges"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <Label Content="DeliverInTime"/>
+            <Label x:Name="LabelDeliverInTime"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Deliver"/>
+            <Label x:Name="LabelDeliver"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Total"/>
+            <Label x:Name="LabelTotal"/>
+        </StackPanel>
+
+    </StackPanel>
+</UserControl>

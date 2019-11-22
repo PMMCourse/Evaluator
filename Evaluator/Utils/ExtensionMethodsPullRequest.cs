@@ -9,24 +9,28 @@ namespace Evaluator.Utils
 {
     public static class ExtensionMethodsPullRequest
     {
-        public static double GetEvaluation(this IEnumerable<PullRequest> prs, Repository repository)
+        public static Qualification GetEvaluation(this IEnumerable<PullRequest> prs, Repository repository)
         {
-            double valoration = 0;
+            Qualification valoration = new Qualification();
             var prSelected = prs.FirstOrDefault(x => x.Title == repository.Name);
             if(prSelected != null)
             {
-                valoration += 0.25;
+                valoration.Evaluation += 0.25;
+                valoration.Deliver = true;
                 if(prSelected.ThereAreAnyChange())
                 {
-                    valoration += 0.25;
+                    valoration.Evaluation += 0.25;
+                    valoration.Changes = true;
                 }
                 if(prSelected.Created_at <= repository.Created_at.AddDays(5))
                 {
-                    valoration += 0.25;
+                    valoration.Evaluation += 0.25;
+                    valoration.DeliverInTime = true;
                 }
-                if(valoration == 0.75)
+                if(valoration.Evaluation == 0.75)
                 {
-                    valoration = 1;
+                    valoration.Evaluation = 1;
+                    valoration.Total = true;
                 }
             }
             return valoration;
@@ -40,5 +44,17 @@ namespace Evaluator.Utils
 
         public static bool ThereAreAnyChange(this PullRequest pr) =>
             pr.Created_at != pr.Updated_at;
+
+        public static string ToExplain(this Qualification q)
+        {
+            string explanation = string.Empty;
+
+            explanation = $"Changes {q.Changes.ToString()}" +
+                $"Deliver {q.Deliver.ToString()}" +
+                $"Deliver in Time {q.DeliverInTime.ToString()}" +
+                $"Total {q.Total.ToString()}";
+
+            return explanation;
+        }
     }
 }
